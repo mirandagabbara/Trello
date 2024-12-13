@@ -131,24 +131,89 @@ class database:
                         resume_data[inst_id]['positions'][position_id]['experiences'][experience_id]['skills'][skill_id] = skill
         return resume_data
     """
+        
+    def getBoardsByUser(self, user_id):
+        query = """
+            SELECT b.board_id, b.name, b.owner_id
+            FROM boards b
+            JOIN boardmembers bm ON b.board_id = bm.board_id
+            WHERE bm.user_id = %s
+             """
+        return self.query(query, [user_id])
+    
+    def addBoard(self, project_name, owner_id, member_emails):
+        try:
+            # Insert the board
+            board_result = self.query(
+                "INSERT INTO boards (name, owner_id) VALUES (%s, %s)", 
+                [project_name, owner_id]
+            )
+            board_id = board_result[0]['LAST_INSERT_ID()'] if board_result else None
+
+            if not board_id:
+                raise ValueError("Failed to create the board.")
+
+            # Add the owner as a member of the board
+            self.query(
+                "INSERT INTO boardmembers (board_id, user_id) VALUES (%s, %s)", 
+                [board_id, owner_id]
+            )
+
+            # Add other members if provided
+            for email in member_emails:
+                email = email.strip()
+                if email:  # Skip empty entries
+                    user = self.query("SELECT user_id FROM users WHERE email = %s", [email])
+                    if user:
+                        user_id = user[0]['user_id']
+                        self.query(
+                            "INSERT INTO boardmembers (board_id, user_id) VALUES (%s, %s)", 
+                            [board_id, user_id]
+                        )
+
+            # Add default lists
+            default_lists = ["To Do", "Doing", "Completed"]
+            for list_name in default_lists:
+                self.query(
+                    "INSERT INTO lists (board_id, name) VALUES (%s, %s)", 
+                    [board_id, list_name]
+                )
+
+            return board_id
+        except Exception as e:
+            print(f"Error in addBoard: {e}")
+            raise
+
+
     #######################################################################################
     # AUTHENTICATION RELATED
     #######################################################################################
     
-    def createUser(self, email='me@email.com', password='password', role='user'):
-        existing_user = self.query("SELECT * FROM users WHERE email = %s", [email])
-        if existing_user:
-            return {'success': 0, 'error': 'User already exists'}
-        
-        # Encrypt the password using Scrypt (via onewayEncrypt)
-        encrypted_password = self.onewayEncrypt(password)
-        
-        # Insert the new user with their role
-        self.query(
-            "INSERT INTO users (email, password, role) VALUES (%s, %s, %s)", 
-            [email, encrypted_password, role]
-        )
-        return {'success': 1}
+    def createUser(self, email, password, role='user'):
+        try:
+            # Check if the user already exists
+            existing_user = self.query("SELECT * FROM users WHERE email = %s", [email])
+            print(f"Existing user check result: {existing_user}")
+
+            if existing_user:
+                return {'success': 0, 'error': 'User already exists'}
+
+            # Hash the password
+            encrypted_password = self.onewayEncrypt(password)
+            print(f"Encrypted password: {encrypted_password}")
+
+            # Insert the new user into the database
+            result = self.query(
+                "INSERT INTO users (email, password, role) VALUES (%s, %s, %s)", 
+                [email, encrypted_password, role]
+            )
+            print(f"Insert result: {result}")
+
+            return {'success': 1}
+        except Exception as e:
+            print(f"Error in createUser: {e}")
+            return {'success': 0, 'error': str(e)}
+
 
 
     def authenticate(self, email='me@email.com', password='password'):
@@ -184,3 +249,5 @@ class database:
             message = fernet.decrypt(message).decode()
 
         return message
+    
+

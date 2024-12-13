@@ -1,9 +1,45 @@
 {% extends 'shared/layout.html' %}
 
+{% block extrajs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ url_for('static', filename='main/js/dashboard.js')  }}" defer></script>
+{% endblock %}
+
+
 {% block maincontent %}
 
-<div class="Test">
-    <h1> Dashboard test</h1>
+<div class="dashboard-container">
+    <h1>Welcome, {{ user }}!</h1>
+
+    <div class="board-actions">
+        <button id="open-board-button">Open Existing Board</button>
+        <button id="create-board-button">Create New Board</button>
+    </div>
+
+    <div id="existing-boards">
+        <h2>Your Boards</h2>
+        <div class="boards-container">
+            {% for board in boards %}
+                <div class="board-item">
+                    <a href="/board/{{ board.board_id }}">{{ board.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="create-board-form" class="hidden">
+        <h2>Create a New Board</h2>
+        <form id="create-board">
+            <label for="project_name">Project Name:</label>
+            <input type="text" id="project_name" name="project_name" required>
+
+            <label for="member-emails">Member Emails (optional, comma-separated):</label>
+            <input type="text" id="member-emails" name="member_emails" placeholder="example@mail.com, user2@mail.com">
+
+            <button type="submit">Create Board</button>
+            <p id="error-message" class="error-message"></p>
+        </form>
+    </div>
 </div>
 
 

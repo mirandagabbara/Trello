@@ -3,9 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 100vh; /* Full viewport height */
-  background-color: #ffffff; /* Optional: light background for contrast */
-  padding: 2em; /* Padding for smaller screens */
+  max-height: 100vh; 
+  background-color: #ffffff; 
+  padding: 2em;
   box-sizing: border-box;
 }
 

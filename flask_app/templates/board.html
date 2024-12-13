@@ -1,0 +1,18 @@
+{% extends 'shared/layout.html' %}
+
+{% block maincontent %}
+<div class="board-container">
+    <h1>{{ board.name }}</h1>
+    <div class="lists-container">
+        {% for list in lists %}
+        <div class="list">
+            <h2 class="list-title">{{ list.name }}</h2>
+            <ul class="cards">
+                <li class="card">No cards yet</li>
+            </ul>
+            <button class="add-card-btn">+ Add a card</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

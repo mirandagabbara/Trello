@@ -7,9 +7,10 @@
   <title> Trello </title>
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/main.css') }}">
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/navbar.css') }}">
-  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/header.css') }}">
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/footer.css') }}">
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/home.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/dashboard.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/board.css') }}">
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/login.css') }}">
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/signup.css') }}">
   <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/chat.css') }}">
@@ -25,11 +26,7 @@
     <!-- The navigation bar -->
     <nav class="nav">
         <p class="name">
-          {% if user == 'Unknown' %}
-              Trello
-          {% else %}
-              Welcome {{ user }}
-          {% endif %}
+          Trello
         </p>
       <div class="menu-icon" id="menu-icon">
           <img src="{{ url_for('static', filename='main/images/menu-bar.png') }}" alt="Menu Icon" loading="lazy">

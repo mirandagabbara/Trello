@@ -127,6 +127,82 @@ def left(data):
     )
 
 
+#######################################################################################
+# BOARD/DASHBOARD RELATED
+#######################################################################################
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    user_email = getUser()
+    user = db.query("SELECT * FROM users WHERE email = %s", [user_email])
+    user_id = user[0]['user_id'] if user else None
+
+    boards = db.getBoardsByUser(user_id) if user_id else []
+    return render_template('dashboard.html', user=getUser(), boards=boards)
+
+
+@app.route('/create_board', methods=["POST"])
+@login_required
+def create_board():
+    try:
+        # Get the project name and member emails from the request
+        project_name = request.form.get("project_name")
+        member_emails = request.form.get("member_emails", "").split(',')
+
+        # Validate the project name
+        if not project_name:
+            raise ValueError("Project name is required.")
+
+        # Get the logged-in user's ID from the session
+        user_email = getUser()
+        user = db.query("SELECT * FROM users WHERE email = %s", [user_email])
+        owner_id = user[0]['user_id'] if user else None
+
+        if not owner_id:
+            raise ValueError("User is not authenticated or does not exist.")
+
+        # Add the board to the database
+        board_id = db.addBoard(project_name, owner_id, member_emails)
+
+        # Return success response
+        return json.dumps({"success": 1, "board_id": board_id})
+
+    except Exception as e:
+        print(f"Error in create_board: {str(e)}")
+        return json.dumps({"success": 0, "error": str(e)}), 500
+
+@app.route('/board/<int:board_id>')
+@login_required
+def board(board_id):
+    try:
+        # Get logged-in user's ID
+        user_email = getUser()
+        user = db.query("SELECT * FROM users WHERE email = %s", [user_email])
+        user_id = user[0]['user_id'] if user else None
+
+        if not user_id:
+            return redirect(url_for('dashboard'))
+
+        # Verify the user is a member of the board
+        membership = db.query(
+            "SELECT * FROM boardmembers WHERE board_id = %s AND user_id = %s", 
+            [board_id, user_id]
+        )
+        if not membership:
+            return "Access Denied", 403
+
+        # Fetch board details
+        board = db.query("SELECT * FROM boards WHERE board_id = %s", [board_id])[0]
+
+        # Fetch lists for this board
+        lists = db.query("SELECT * FROM lists WHERE board_id = %s", [board_id])
+
+        # Render the board page with its details and lists
+        return render_template('board.html', board=board, lists=lists)
+    except Exception as e:
+        print(f"Error in board route: {str(e)}")
+        return "An error occurred while loading the board.", 500
 
 #######################################################################################
 # OTHER
@@ -138,18 +214,6 @@ def root():
 @app.route('/home')
 def home():
 	return render_template('home.html')
-
-@app.route('/dashboard')
-def dashboard():
-	return render_template('dashboard.html')
-
-"""
-@app.route('/resume')
-def resume():
-	resume_data = db.getResumeData()
-	pprint(resume_data)
-	return render_template('resume.html', resume_data = resume_data)
-"""
 
 @app.route("/static/<path:path>")
 def static_dir(path):

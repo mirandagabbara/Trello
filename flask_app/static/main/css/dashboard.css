@@ -1,0 +1,99 @@
+/* Dashboard styling */
+.dashboard-container {
+    max-width: 80vw;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.board-actions {
+    margin-bottom: 2rem;
+}
+
+.board-actions button {
+    margin: 0 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #4BA3C7;
+    color: white;
+}
+
+/* Create a new board or open exisitng boards styling */
+.board-actions button:hover {
+    background-color: #3A8FB2;
+}
+
+.hidden {
+    display: none;
+}
+
+#existing-boards ul {
+    list-style: none;
+    padding: 0;
+}
+
+#existing-boards ul li {
+    margin: 1rem 0;
+}
+
+#existing-boards ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+#existing-boards ul li a:hover {
+    text-decoration: underline;
+}
+
+#create-board-form {
+    margin-top: 2rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* Boards Container */
+.boards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Individual Board Item */
+.board-item {
+    background-color: #78C850;
+    color: #fff; 
+    border-radius: 1.5rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 15rem; 
+}
+
+/* Hover Effect */
+.board-item:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
+    background-color: #5D9C42;
+}
+
+/* Link Styling */
+.board-item a {
+    text-decoration: none;
+    color: #fff; 
+}
+
+.board-item a:hover {
+    text-decoration: underline;
+}
