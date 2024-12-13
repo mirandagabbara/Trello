@@ -1,0 +1,29 @@
+{% extends 'shared/layout.html' %}
+
+{% block extrajs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ url_for('static', filename='main/js/login.js')  }}" defer></script>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="login-page-wrapper">
+  <div class="login-container">
+      <h1>Login</h1>
+      <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="login-email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="login-password" name="password" required>
+        
+        <button type="submit">Login</button>
+        <p id="error-message" style="color: red; display: none;"></p>
+    </form>
+      <p class="signup-link">Not a member yet? <a href="{{ url_for('signup') }}">Sign up!</a></p>
+  </div>
+</div>
+{% endblock %}
+
+
+

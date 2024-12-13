@@ -1,0 +1,22 @@
+{% extends 'shared/layout.html' %}
+
+{% block maincontent %}
+<div class="home-content-row">
+  <!-- Left Column (Image) -->
+  <div class="home-left-column">
+    <img src="{{ url_for('static', filename='main/images/kanban-image.jpg') }}" alt="Kanban Board">
+  </div>
+
+  <!-- Right Column (Text and Buttons) -->
+  <div class="home-right-column">
+    <h1>Welcome to Trello - Your Interactive Kanban Board</h1>
+    <p>Manage your tasks effectively and collaborate in real-time. Create an account to get started!</p>
+    <div class="home-actions">
+      <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign Up</a>
+      <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,127 @@
+/* General styling */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3A8FB2; 
+    height: 10vh; 
+    padding: 0 .25em;
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
+
+}
+
+/* Title styling */
+.name {
+    font-size: 1.5em;
+    color: #FFFFFF; 
+    display: flex;
+    margin: 0;
+    white-space: nowrap;
+    padding: 0;
+    gap: .5em; 
+    justify-content: left; 
+    align-items: center; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Styling for links */
+.links {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: .5em; 
+    justify-content: flex-end; 
+    align-items: center; 
+}
+
+.links li {
+    padding-left: .75em; 
+    padding-right: .75em; 
+}
+
+.links li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    opacity: 1;
+    white-space: normal; 
+}
+
+.links li a img {
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: middle;
+}
+
+/* Styling for links when hovered over */
+.links li a:hover {
+    opacity: 0.6;
+}
+
+/* Menu icon styling  */
+.menu-icon img {
+    display: none; 
+    width: 2.5em;
+    height: 2.5em;
+    cursor: pointer;
+    transition: opacity 0.3s ease; 
+}
+
+/* Icon hover styling */
+.menu-icon:hover {
+    opacity: 0.6; 
+}
+
+/* Linkedintext hidden */
+.linkedin-text {
+    display: none;
+}
+
+/* Styling for mobile/small windows */
+@media screen and (max-width: 650px) {
+    .links {
+        display: none;
+        flex-direction: column;
+        background-color: #3A8FB2; 
+        padding: 1.25em;
+        position: absolute;
+        top: 100%; 
+        right: 0;
+        width: 100%;
+        gap: .5em;
+        z-index: 99; 
+    }
+
+    .menu-icon img {
+        display: block; 
+        cursor: pointer;
+    }
+
+    /* Replace LinkedIn icon with text and hide icon*/
+    #linkedin-link img {
+        display: none; 
+    }
+
+    /* Show linkedin text */
+    .linkedin-text {
+        display: inline; 
+        color: #FFFFFF;
+    }
+
+    .links li {
+        padding-left: 1.25em;
+    }
+}
+
+/* Styling when screen is larger than 650px */
+@media screen and (min-width: 651px) {
+    /* Show links nomrally again */
+    .links {
+        display: flex !important;
+        justify-content: flex-end; 
+        position: relative;
+    }
+}

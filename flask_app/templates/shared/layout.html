@@ -1,0 +1,84 @@
+<!-- FILL ME IN WITH CODE FOR YOUR PAGE LAYOUT -->
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Trello </title>
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/main.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/navbar.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/header.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/footer.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/home.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/login.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/signup.css') }}">
+  <link rel="stylesheet"    href="{{ url_for('static', filename='main/css/chat.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='main/images/favicon.ico') }}">
+  {% block extracss %}{% endblock %}
+  <script src="{{ url_for('static', filename='main/js/main.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='main/js/menu.js') }}" defer></script>
+  {% block extrajs %}{% endblock %}
+</head>
+
+<body>
+    <article>
+    <!-- The navigation bar -->
+    <nav class="nav">
+        <p class="name">
+          {% if user == 'Unknown' %}
+              Trello
+          {% else %}
+              Welcome {{ user }}
+          {% endif %}
+        </p>
+      <div class="menu-icon" id="menu-icon">
+          <img src="{{ url_for('static', filename='main/images/menu-bar.png') }}" alt="Menu Icon" loading="lazy">
+
+      </div>
+      <ul class="links" id="nav-links">
+          {% if user == 'Unknown' %}
+              <li><a href="{{ url_for('home') }}">Home</a></li>
+              <li><a href="{{ url_for('login') }}">Login</a></li>
+              <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+          {% else %}
+              <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          {% endif %} 
+      </ul>
+
+    </nav>
+
+    <!-- The main content  -->
+    <main>
+      {% block maincontent %}{% endblock %}
+    </main>
+
+    <!-- The footer of the file -->
+    <footer>
+      <p>© Trello </p>
+    </footer>
+    <script src="{{ url_for('static', filename='main/js/menu.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='main/js/login.js') }}" defer></script>  
+    <script src="{{ url_for('static', filename='main/js/chat.js') }}" defer></script>  
+
+
+    </article>
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

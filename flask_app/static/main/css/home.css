@@ -1,0 +1,102 @@
+/* Styling specific to the home page */
+
+/* Container for two-column layout */
+.home-content-row {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 80vw;
+    margin: 5vh auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Styling for the left column (Kanban image) */
+  .home-left-column {
+    flex: 1;
+    text-align: center;
+    padding: 1.5em;
+  }
+  
+  .home-left-column img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5em;
+  }
+  
+  /* Styling for the right column (description and buttons) */
+  .home-right-column {
+    flex: 1;
+    padding: 2em;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .home-right-column h1 {
+    color: #FF6B6B; /* Vibrant red for the header */
+    font-size: 2.5rem;
+    margin-bottom: 1em;
+  }
+  
+  .home-right-column p {
+    font-size: 1.2rem;
+    margin-bottom: 2em;
+    color: #5D4037; /* Neutral dark text */
+  }
+  
+  /* Buttons styling for actions */
+  .home-actions {
+    display: flex;
+    gap: 1em;
+  }
+  
+  .home-actions .btn {
+    padding: 0.8em 2em;
+    border: none;
+    border-radius: 0.5em;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  /* Primary button */
+  .home-actions .btn-primary {
+    background-color: #78C850; /* Green button */
+    color: #FFF;
+  }
+  
+  .home-actions .btn-primary:hover {
+    background-color: #5D9C42; /* Darker green on hover */
+  }
+  
+  /* Secondary button */
+  .home-actions .btn-secondary {
+    background-color: #4BA3C7; /* Blue button */
+    color: #FFF;
+  }
+  
+  .home-actions .btn-secondary:hover {
+    background-color: #3A8FB2; /* Darker blue on hover */
+  }
+  
+  /* Responsive design adjustments */
+  @media screen and (max-width: 650px) {
+    .home-content-row {
+        flex-direction: column;
+        max-width: 90vw;
+        text-align: center;
+    }
+  
+    .home-left-column, .home-right-column {
+        width: 100%;
+        padding: 1em;
+    }
+  
+    .home-actions {
+        flex-direction: column;
+        gap: 1em;
+    }
+  }
+  
